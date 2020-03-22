@@ -21,11 +21,13 @@ bindir = $(prefix)/bin
 libdir = $(prefix)/lib
 includedir = $(prefix)/include
 
-all: xmltest staticlib
+all: xmlparse xmltest staticlib 
 
 rebuild: clean all
 
 xmltest: xmltest.cpp libtinyxml2.a
+
+xmlparse: xmlparse.cpp libtinyxml2.a
 
 effc:
 	gcc -Werror -Wall -Wextra -Wshadow -Wpedantic -Wformat-nonliteral \
@@ -35,11 +37,11 @@ effc:
         -Wno-unused-parameter -Weffc++ xmltest.cpp tinyxml2.cpp -o xmltest
 
 clean:
-	-$(RM) *.o xmltest libtinyxml2.a
+	-$(RM) *.o xmlparse xmltest libtinyxml2.a
 
 # Standard GNU target
 distclean:
-	-$(RM) *.o xmltest libtinyxml2.a
+	-$(RM) *.o xmlparse xmltest libtinyxml2.a
 
 test: xmltest
 	./xmltest
